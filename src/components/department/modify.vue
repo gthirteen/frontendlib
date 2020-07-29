@@ -2,19 +2,19 @@
 <!-- Default box -->
 <div class="box">
   <div class="box-header table-bordered">
-    <h3 class="box-title">修改房间</h3>
+    <h3 class="box-title">修改部门</h3>
     <div class="box-body">
       <form v-on:submit.prevent="modify()">
         <div class="form-group">
           <label>ID</label>
-          <input type="text" class="form-control" v-model="room.id" readonly>
+          <input type="text" class="form-control" v-model="department.id" readonly>
         </div>
         <div class="form-group">
-          <label>Layout</label>
-          <input type="text" class="form-control" v-model="room.layout">
+          <label>Name</label>
+          <input type="text" class="form-control" v-model="department.name">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
-        <router-link to="/room/list">
+        <router-link to="/department/list">
           <button type="submit" class="btn btn-primary">Cancel</button>
         </router-link>
       </form>
@@ -27,30 +27,30 @@
 
 <script>
 export default {
-    name:"RoomModify",
+    name:"DepartmentModify",
     data() {
       return {
-        room: {
+        department: {
             id:"",
-            layout: -1
+            name: ""
         }
       };
     },
     created() {
-      let room_id = this.$route.params.id;
-      this.getRoom(room_id);
+      let department_id = this.$route.params.id;
+      this.getDepartment(department_id);
     },
     methods: {
-      getRoom(id) {
-          this.AxiosJSON.get("/room/getbyid?id="+id).then(result => {
-              this.room = result.data.result;
+      getDepartment(id) {
+          this.AxiosJSON.get("/department/getbyid?id="+id).then(result => {
+              this.department = result.data.result;
           });
       },
       modify() {
-          this.AxiosJSON.post("/room/modify", this.room).then(result => {
+          this.AxiosJSON.post("/department/modify", this.department).then(result => {
               if (result.data.status == "OK") {
                   alert("OK");
-                  this.$router.push("/room/list");
+                  this.$router.push("/department/list");
               } else {
                   alert("Oops");
               }

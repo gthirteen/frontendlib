@@ -41,7 +41,7 @@ export default {
     },
     methods: {
       getRoom(id) {
-          this.AxiosJSON.get("http://localhost:8081/room/getbyid?id="+id).then(result => {
+          this.AxiosJSON.get("/room/getbyid?id="+id).then(result => {
               this.room = result.data.result;
           });
       }

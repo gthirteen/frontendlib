@@ -28,10 +28,19 @@
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
                  with font-awesome or any other icon font library -->
-            <li class="nav-header">菜单标题</li>
             <li class="nav-item">
               <router-link to="/room" class="nav-link">
                 <p>房间信息</p>
+              </router-link>
+            </li>
+            <li class="nav-item">
+              <router-link to="/department" class="nav-link">
+                <p>部门信息</p>
+              </router-link>
+            </li>
+            <li class="nav-item">
+              <router-link to="/elder" class="nav-link">
+                <p>老人信息</p>
               </router-link>
             </li>
           </ul>

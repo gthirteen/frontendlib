@@ -2,7 +2,7 @@
 <!-- Default box -->
 <div class="box">
   <div class="box-header table-bordered">
-    <h3 class="box-title" >房间列表</h3>
+    <h3 class="box-title">老人信息列表</h3>
     <div class="dataTables_info">Result count: {{this.count}}</div>
     <div class="dataTables_info">Page: {{this.page}}/{{this.pageCount}}</div>
     <div class="box-body">
@@ -10,18 +10,24 @@
       <thead>
         <tr>
           <th scope="col">ID</th>
-          <th scope="col">Layout</th>
+          <th scope="col">Name</th>
+          <th scope="col">Sex</th>
+          <th scope="col">Birthday</th>
+          <th scope="col">Room id</th>
           <th scope="col">Operation</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="rm in roomlist" v-bind:key="rm.id">
-          <td>{{rm.id }}</td>
-          <td>{{rm.layout }}</td>
+        <tr v-for="em in elderlist" v-bind:key="em.id">
+          <td>{{em.id }}</td>
+          <td>{{em.name }}</td>
+          <td>{{em.sex }}</td>
+          <td>{{em.birthday }}</td>
+          <td>{{em.room.id }}</td>
           <td>
-            <router-link v-bind:to="'/room/modify/'+rm.id" class="btn btn-info">Modify</router-link>
-            <router-link v-bind:to="'/room/view/'+rm.id" class="btn btn-info">View</router-link>
-            <a href="#" class="btn btn-danger" v-on:click="deleteRoom(rm.id)">Delete</a>
+            <router-link v-bind:to="'/elder/modify/'+em.id" class="btn btn-info">Modify</router-link>
+            <router-link v-bind:to="'/elder/view/'+em.id" class="btn btn-info">View</router-link>
+            <a href="#" class="btn btn-danger" v-on:click="deleteElder(em.id)">Delete</a>
           </td>
         </tr>
       </tbody>
@@ -34,17 +40,17 @@
     <!-- /.box-body -->
   </div>
   <!--TODO-->
-  <router-link to="/room/add" class="btn btn-default">Add new</router-link>
+  <router-link to="/elder/add" class="btn btn-default">Add new</router-link>
 </div>
 <!-- /.box -->
 </template>
 
 <script>
 export default {
-    name:"RoomList",
+    name:"ElderList",
     data() {
       return {
-        roomlist: [],
+        elderlist: [],
         page: 1,
         rows: 2,
         count: null,
@@ -75,22 +81,31 @@ export default {
         this.getList();
       },
       getList() {
-        this.AxiosJSON.get("/room/list/all/page", {
+        this.AxiosJSON.get("/elder/list/all/page", {
           params:{
             rows: this.rows,
             page: this.page
           }
         }).then(result => {
           console.log(result);
-          this.roomlist = result.data.list;
+          this.elderlist = result.data.list;
           this.count = result.data.count;
           this.pageCount = result.data.pageCount;
+          for (var i=0; i<this.elderlist.length; i+=1) {
+            if (this.elderlist[i].birthday!=null) {
+              this.elderlist[i].birthday = this.elderlist[i].birthday.split("T")[0];
+            }
+            if (this.elderlist[i].joinday!=null) {
+              this.elderlist[i].joinday = this.elderlist[i].joinday.split("T")[0];
+            }            
+            // this.elderlist[i].leaveday = this.elderlist[i].leaveday.split("T")[0];
+          }
         });
       },
-      deleteRoom(id) {
+      deleteElder(id) {
         let check = confirm("确定？");
         if (check) {
-            this.AxiosJSON.Axios.post("/room/delete", {id:id}).then(result => {
+            this.AxiosJSON.post("/elder/delete", {id:id}).then(result => {
               if (result.data.status == "OK") {
                   alert("OK");
                   this.getList();

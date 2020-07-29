@@ -2,19 +2,19 @@
 <!-- Default box -->
 <div class="box">
   <div class="box-header table-bordered">
-    <h3 class="box-title">添加房间</h3>
+    <h3 class="box-title">添加部门</h3>
     <div class="box-body">
       <form v-on:submit.prevent="add()">
         <div class="form-group">
           <label>ID</label>
-          <input type="text" class="form-control" name="code" v-model="room.id" required>
+          <input type="text" class="form-control" name="code" v-model="department.id" required>
         </div>
         <div class="form-group">
-          <label>Layout</label>
-          <input type="text" class="form-control" name="name" v-model="room.name" required>
+          <label>name</label>
+          <input type="text" class="form-control" name="name" v-model="department.name" required>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
-        <router-link to="/room/list">
+        <router-link to="/department/list">
           <button type="submit" class="btn btn-primary">Cancel</button>
         </router-link>
       </form>
@@ -22,28 +22,28 @@
     <!-- /.box-body -->
   </div>
   <!--TODO-->
-  <a href="/room/add" class="btn btn-default">Add new</a>
+  <a href="/department/add" class="btn btn-default">Add new</a>
 </div>
 <!-- /.box -->
 </template>
 
 <script>
 export default {
-    name:"RoomAdd",
+    name:"DepartmentAdd",
     data() {
       return {
-        room: {
+        department: {
             id:"",
-            layout: -1
+            name: ""
         }
       };
     },
     methods: {
       add() {
-          this.AxiosJSON.post("/room/add", this.room).then(result => {
+          this.AxiosJSON.post("/department/add", this.department).then(result => {
               if (result.data.status == "OK") {
                   alert("OK");
-                  this.$router.push("/room/list");
+                  this.$router.push("/department/list");
               } else {
                   alert("Oops");
               }
