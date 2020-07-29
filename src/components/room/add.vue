@@ -28,7 +28,6 @@
 </template>
 
 <script>
-import Axios from "axios"
 export default {
     name:"RoomAdd",
     data() {
@@ -44,7 +43,7 @@ export default {
     },
     methods: {
       add() {
-          Axios.post("http://localhost:8081/room/add", this.room).then(result => {
+          this.AxiosJSON.post("http://localhost:8081/room/add", this.room).then(result => {
               if (result.data.status == "OK") {
                   alert("OK");
                   this.$router.push("/room/list");

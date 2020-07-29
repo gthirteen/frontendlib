@@ -26,7 +26,6 @@
 </template>
 
 <script>
-import Axios from "axios"
 export default {
     name:"RoomModify",
     data() {
@@ -43,12 +42,12 @@ export default {
     },
     methods: {
       getRoom(id) {
-          Axios.get("http://localhost:8081/room/getbyid?id="+id).then(result => {
+          this.AxiosJSON.get("http://localhost:8081/room/getbyid?id="+id).then(result => {
               this.room = result.data.result;
           });
       },
       modify() {
-          Axios.post("http://localhost:8081/room/modify", this.room).then(result => {
+          this.AxiosJSON.post("http://localhost:8081/room/modify", this.room).then(result => {
               if (result.data.status == "OK") {
                   alert("OK");
                   this.$router.push("/room/list");

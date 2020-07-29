@@ -34,7 +34,6 @@
 </template>
 
 <script>
-import Axios from "axios"
 export default {
     name:"RoomList",
     data() {
@@ -47,7 +46,7 @@ export default {
     },
     methods: {
       getList() {
-        Axios.get("http://localhost:8081/room/list/all", {
+        this.AxiosJSON.get("/room/list/all", {
           params:{
 
           }
@@ -59,7 +58,7 @@ export default {
       deleteRoom(id) {
         let check = confirm("确定？");
         if (check) {
-            Axios.post("http://localhost:8081/room/delete", {id:id}).then(result => {
+            this.AxiosJSON.Axios.post("/room/delete", {id:id}).then(result => {
               if (result.data.status == "OK") {
                   alert("OK");
                   this.getList();

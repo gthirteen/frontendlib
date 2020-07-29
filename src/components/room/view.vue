@@ -25,7 +25,6 @@
 </template>
 
 <script>
-import Axios from "axios"
 export default {
     name:"RoomView",
     data() {
@@ -42,7 +41,7 @@ export default {
     },
     methods: {
       getRoom(id) {
-          Axios.get("http://localhost:8081/room/getbyid?id="+id).then(result => {
+          this.AxiosJSON.get("http://localhost:8081/room/getbyid?id="+id).then(result => {
               this.room = result.data.result;
           });
       }
