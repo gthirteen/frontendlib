@@ -13,7 +13,7 @@ const AxiosJSON = Axios.create({
 
 const AxiosUpload = Axios.create({
   baseURL: "http://localhost:8081/",
-  timeout: 2000,
+  timeout: 3000,
   headers:{"Content-Type":"multipart/form-data"}
 });
 
